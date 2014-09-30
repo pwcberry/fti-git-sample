@@ -30,3 +30,4 @@ More advanced
 * submodules
 * hunking
 * cherry picking
+* reflog
