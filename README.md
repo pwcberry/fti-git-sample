@@ -6,11 +6,12 @@ These are the `git`functions we'll be covering in our training sessions:
 Elementary
 ----------
 
-* `git pull`
-* `git push`
-* `git commit`
-* `git add`
 * `git branch`
+* `git add`
+* `git commit`
+* `git push`
+* `git pull`
+* `git checkout`
 * `git stash`
 * `.gitignore`
  
@@ -26,6 +27,7 @@ Slightly more advanced
 More advanced
 -------------
 
+* git aliases
 * upstream branches
 * submodules
 * hunking
