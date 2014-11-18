@@ -1,7 +1,7 @@
 var fs = require('fs');
 var cp = require('child_process');
 
-var usageText = "Usage: <filecount> <filenamebase> <filenameextension>";
+var usageText = "Usage: <filecount> <filenamebase>";
 
 function random(a, b) {
 	return isNaN(b) ? 
@@ -9,90 +9,63 @@ function random(a, b) {
 		(a + Math.floor(Math.random() * (b -a)));
 }
 
-/*function addToGit(data, filename) {
-	// var cmd  =  'git add "' + filename + '"; ' +
-	// 		' git commit -m "A random change of ' + data + ' to ' + filename + '"';
-
-	return function(err) {
-
-	if (err) {
-		console.error(err);
-	} else {
-	}
+function addToGit(filename, data, next) {
+	return function() {
+		var gitAdd, gitCommit;
 		
-	}
-}*/
+		fs.writeFileSync(filename, data);
 
-function addToGit(filename, data) {
-	var gitAdd, gitCommit;
-		// gitAdd = cp.spawn('git', ['add', filename]);
-
-		// gitAdd.stdout.on('data', function(data) {
-		// 	var gitCommit = cp.spawn('git', ['commit', '-m', 'A random change of ' + data + ' to ' + filename]);
-			
-		// 	gitCommit.on('data', function(data) {
-		// 		console.log(data);
-		// 	})
-			
-		// 	console.log(data);
-		// });
-
-	gitAdd = cp.exec(('git add ' + filename), 
-		function(err, stdout) {
-			if (!err) {
-				console.log(stdout);
-			} else {
-				console.error(err);
-			}
-			gitAdd.stdin.end();
-			
-			gitCommit = cp.exec(('git commit -m "A random change of ' + data + ' to ' + filename +'" "' + filename +'"'), function(err, stdout){
+		gitAdd = cp.exec(('git add ' + filename), 
+			function(err, stdout) {
 				if (!err) {
 					console.log(stdout);
 				} else {
 					console.error(err);
 				}
-				gitCommit.stdin.end();
+				gitAdd.stdin.end();
+				
+				gitCommit = cp.exec(('git commit -m "A random change of ' + data + ' to ' + filename +'" "' + filename +'"'), function(err, stdout){
+					if (!err) {
+						console.log(stdout);
+					} else {
+						console.error(err);
+					}
+					gitCommit.stdin.end();
+
+					if (typeof next === 'function') {
+						next();
+					}
+				});
 			});
-		});
+	};
 }
 
-function generateRandomChanges(count, filenamebase, extension) {
-	var index = 1, filename, data, commitMsg;
-	while (index<=count) {
-		filename = filenamebase + index + '.' + extension;
+function generateRandomChanges(count, filenamebase) {
+	var index = 1, extension = 'txt', filenames = [], data = [], actions;
+	while (count > 0) {
+		filename = filenamebase + count + '.' + extension;
 		data = random(10000);
-		// cmd = 'git add "' + filename + '"; ' +
-		// 	' git commit -m "A random change of ' + data + ' to ' + filename + '"';
-				
-		console.log('data: ' + data);
-		console.log('filename: ' + filename);
 
-		fs.writeFileSync(filename, data);
-		addToGit(filename, data);
+		if (index == 1) {
+			actions = addToGit(filename, data);
+		} else {
+			actions = addToGit(filename, data, actions);
+		}
+
 		index++;
+		count--;
 	}
+
+	actions();
 }
 
 function main() {
 	var cmdArgs = process.argv.slice(2);
-	generateRandomChanges(parseInt(cmdArgs[0]), cmdArgs[1], cmdArgs[2]);
+	generateRandomChanges(parseInt(cmdArgs[0]), cmdArgs[1]);
 }
 
-if (process.argv.length !== 5) {
+if (process.argv.length !== 4) {
 	console.error('\n' + usageText + '\n');
 } else {
 	main();
 }
-
-/*
-
-To work with the asychronous nature of the child
-processes after a Git process has been spawned,
-set up the commands required as a sequence, so that
-after the git commit, it executes the 'next' command.
-
-This way it is possible to avoid the locks on the .git folder
-when git is operating.
-
-*/
