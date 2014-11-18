@@ -10,6 +10,8 @@ We'll cover:
 * Compared to TFS
 (summary)
 
+Each section will have a brief description then a live coding example
+
 ## A comparison between TFS & GIT
 
 # Git: A brief history
