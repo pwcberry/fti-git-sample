@@ -29,6 +29,9 @@ Each section will have a brief description then a live coding example
 * Prepared for dev stupidity - there are commands to claw back some of the worst mistakes
 * Ultimately it's file-based
 * Stores all the version control metadata in files (`.git` sub directory)
+* Even Microsoft chooses Git
+  - http://www.hanselman.com/blog/GitSupportForVisualStudioGitTFSAndVSPutIntoContext.aspx
+  - http://blogs.msdn.com/b/dotnet/archive/2014/11/12/net-core-is-open-source.aspx
 
 # Why is Git fast
 
@@ -49,7 +52,7 @@ Each section will have a brief description then a live coding example
 * Development work flow in Git doesn't experience the same hindrances
 * For example branches
 	- TFS retrieves everything
-	- Git changes the local state, updating files with relevant diffs
+	- Git changes the local state, updating files with relevant diffs, thus, fetching remotely is a far smaller footprint
 
 * Distinction between Git commits and TFS changesets
 	- Self-contained
