@@ -70,4 +70,3 @@ Each section will have a brief description then a live coding example
 ## Tagging
 
 * A good tagging strategy can allow build rollbacks to occur without difficulty
-* 
