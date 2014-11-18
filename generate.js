@@ -41,7 +41,12 @@ function addToGit(filename, data, next) {
 }
 
 function generateRandomChanges(count, filenamebase) {
-	var index = 1, extension = 'txt', filenames = [], data = [], actions;
+	var index = 1, extension = 'txt', filename ,data, actions;
+
+	// To ensure one action follows another, we need
+	// to create a function object that will
+	// execute recursively
+
 	while (count > 0) {
 		filename = filenamebase + count + '.' + extension;
 		data = random(10000);
