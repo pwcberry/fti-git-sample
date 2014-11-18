@@ -14,8 +14,7 @@ function addToGit(data, filename) {
 	// 		' git commit -m "A random change of ' + data + ' to ' + filename + '"';
 
 	return function(err) {
-		// var gitAdd, gitCommit;
-		var gitAdd;
+		var gitAdd, gitCommit;
 
 		if (err) {
 			console.error(err);
@@ -32,18 +31,23 @@ function addToGit(data, filename) {
 			// 	console.log(data);
 			// });
 
-			gitAdd = cp.exec(('git add ' + filename), function(err) {
-				if (err) {
+			gitAdd = cp.exec(('git add ' + filename), function(err, stdout) {
+				if (!err) {
+					console.log(stdout);
+				} else {
 					console.error(err);
 				}
 				gitAdd.stdin.end();
-				// gitAdd.exit();
+				
+				gitCommit = cp.exec(('git commit -m "A random change of ' + data + ' to ' + filename +'" "' + filename +'"'), function(err, stdout){
+					if (!err) {
+						console.log(stdout);
+					} else {
+						console.error(err);
+					}
+					gitCommit.stdin.end();
+				});
 			});
-			/*cp.exec(cmd, function(err){
-				if (err) {
-					console.error(err);
-				}
-			});*/
 		}
 	}
 }
