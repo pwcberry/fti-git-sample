@@ -53,3 +53,15 @@ We'll cover:
 	- Git treats commits is distinctly different to how TFS tracks changesets
 	- Rollbacks in changesets involves erasing history; in Git you can specify the commit you want to move the HEAd to while retaining history (INTERACTIVE)
 
+# Working in Git
+
+## Commits
+
+## Stash
+
+# Other Git Features of Benefit
+
+## Tagging
+
+* A good tagging strategy can allow build rollbacks to occur without difficulty
+* 
