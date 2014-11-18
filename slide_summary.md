@@ -3,11 +3,12 @@
 We'll cover:
 
 * A brief history of git (with a Stephen Hawking picture)
-* Popularity
-* Setting up Git
-* Branching & Merging
+* Setting up Git (console with CygWin, GUI with SourceTree; mention Github for Windows)
 * Commits
+* Branching & Merging
 * Git flow
+* Compared to TFS
+(summary)
 
 ## A comparison between TFS & GIT
 
