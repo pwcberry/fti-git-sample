@@ -16,7 +16,7 @@
 * Repositories
 	- "Source of truth"
 
-* Prmotes a different approach to software maintenance
+* Promotes a different approach to software maintenance
 	- smaller and regular commits - not necessary to remote - recording your intent as you go along. A bit like the trail of breadcrumbs left behind by Hansel und Gretel.
 	- So if you stuff up, you can go back to the most recent ideas you had when writing your code. Rather than the last time you pulled out of the main repo
 	- compartabmalized commits
